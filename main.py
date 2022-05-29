@@ -1,5 +1,7 @@
 import pygame
 from hero import Hero
+from bullet import Bullet
+from enemy import Enemy
 # initialize pygame
 pygame.init()
 
@@ -16,8 +18,18 @@ clock = pygame.time.Clock()
 
 hero = Hero((screen_width/2,screen_height-100))
 
+bullets = []
+
 sprites = pygame.sprite.Group()
 sprites.add(hero)
+
+enemy_sprites = pygame.sprite.Group()
+
+for x in range(5):
+    enemy = Enemy(screen)
+    sprites.add(enemy)
+    enemy_sprites.add(enemy)
+
 
 playing = True
 
@@ -29,6 +41,10 @@ while playing:
         if event.type == pygame.QUIT:
             playing = False
         
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                bullets.append(Bullet(hero.rect.x+hero.rect.width/2, hero.rect.y))
+     
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_LEFT]:
@@ -36,10 +52,17 @@ while playing:
 
     if keys[pygame.K_RIGHT]:
         hero.move_right(4, screen_width)
-               
+    
+
+
+    for b in bullets:
+        b.update() 
+        b.draw(screen)
+
     sprites.update()
     sprites.draw(screen)
 
+   
     pygame.display.flip()
 
 
