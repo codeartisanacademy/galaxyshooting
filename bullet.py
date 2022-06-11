@@ -2,6 +2,7 @@ import  pygame
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y):
+        super().__init__()
         self.radius = 6
         self.speed = 10
         self.x = x

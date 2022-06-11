@@ -59,6 +59,12 @@ while playing:
         b.update() 
         b.draw(screen)
 
+
+    enemy_player_hits = pygame.sprite.spritecollide(hero, enemy_sprites, False)
+
+    if enemy_player_hits:
+        playing = False
+
     sprites.update()
     sprites.draw(screen)
 
